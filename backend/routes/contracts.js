@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Get user's contracts
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', auth, async (req, res) => {
   try {
     const contracts = await Contract.find({
       $or: [
@@ -27,7 +27,7 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 // Get single contract
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     const contract = await Contract.findById(req.params.id)
       .populate('project', 'title description')

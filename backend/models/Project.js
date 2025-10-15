@@ -38,6 +38,13 @@ const projectSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  // Set once a bid has been accepted
+  freelancer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: false,
+    default: null
+  },
   status: {
     type: String,
     enum: ['open', 'in-progress', 'completed', 'cancelled'],

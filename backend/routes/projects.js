@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
   try {
     const project = await Project.findById(req.params.id)
       .populate('client', 'username profile')
+      .populate('freelancer', 'username profile')
       .populate({
         path: 'bids',
         populate: {
@@ -112,7 +113,7 @@ router.put('/:id', auth, async (req, res) => {
       req.params.id,
       req.body,
       { new: true }
-    ).populate('client', 'username profile');
+    ).populate('client', 'username profile').populate('freelancer', 'username profile');
 
     res.json({
       message: 'Project updated successfully',

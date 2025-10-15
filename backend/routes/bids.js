@@ -49,7 +49,7 @@ router.post('/', auth, [
     }
 
     // Check if user is a freelancer
-    if (req.userRole !== 'freelancer') {
+    if (req.role !== 'freelancer') {
       return res.status(403).json({ message: 'Only freelancers can place bids' });
     }
 
@@ -124,8 +124,12 @@ router.put('/:id/accept', auth, async (req, res) => {
     bid.status = 'accepted';
     await bid.save();
 
-    // Update project status
-    await Project.findByIdAndUpdate(bid.project._id, { status: 'in-progress' });
+    // Update project status and assign freelancer
+    await Project.findByIdAndUpdate(
+      bid.project._id,
+      { status: 'in-progress', freelancer: bid.freelancer._id },
+      { new: true }
+    );
 
     // Create contract
     const contract = new Contract({

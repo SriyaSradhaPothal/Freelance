@@ -4,14 +4,17 @@
   "description": "A comprehensive freelance bidding platform built with the MERN stack, featuring project posting, bidding, messaging, contract management, and secure payments.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "build": "npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "mongoose": "^8.19.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
